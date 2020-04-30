@@ -34,7 +34,11 @@ data.columns = ['Score', 'Frequency']
 fig = go.Figure(
     data=[go.Scatter(x=data['Score'], y=data['Frequency'],
                      mode="lines",
-                     line=dict(width=2, color="blue"))],
+                     line=dict(width=2, color="blue")),
+          go.Scatter(x=data['Score'], y=data['Frequency'],
+                     mode="lines",
+                     line=dict(width=2, color="blue"))
+         ],
     layout=go.Layout(
         xaxis=dict(range=[data['Score'].min(), data['Score'].max()], autorange=False),
         yaxis=dict(range=[data['Frequency'].min(), data['Frequency'].max()+2], autorange=False),
@@ -44,7 +48,16 @@ fig = go.Figure(
             buttons=[dict(label="Play",
                           method="animate",
                           args=[None])])]
-    ))
+    ),
+    frames=[go.Frame(
+        data=[go.Scatter(
+            x=[data['Score'][k]],
+            y=[data['Frequency'][k]],
+            mode="markers",
+            line=dict(color="red", width=10))])
+
+       for k in range(N)]
+)
 
 
 fig.show()
