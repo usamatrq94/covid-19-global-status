@@ -1,9 +1,13 @@
+# Making necessary imports
 from sklearn.cluster import KMeans
 from numpy.random import default_rng
 import pandas as pd
 import numpy as np
 
+# importing csv file 
 X = pd.read_csv('C:\\Users\\usama\\OneDrive\\Desktop\\github\\covid-19-global-status\\output\\all_data.csv')
+
+# This segment is about generating multiple knn centroids and developing a critera that would fit our case.
 ykm = []
 res = []
 center = []
@@ -30,6 +34,7 @@ for x in range(0,50):
     
 sdev=[]
 
+# Calculating Standard deviation as part of criteria
 for x in range(0,len(res)):
     std = np.std(res[x])
     sdev.append(std)
@@ -47,6 +52,7 @@ y_km = pd.DataFrame(y_km)
 results = pd.concat([X, y_km], axis=1)
 results.columns = ['Strength', 'Impact', 'Prediction']
 
+# Plotting the graph
 import matplotlib.pyplot as plt
 plt.scatter(results[results['Prediction'] == 0]['Impact'] ,results[results['Prediction'] == 0]['Strength'], s=20, c='red', label='C1')
 plt.scatter(results[results['Prediction'] == 1]['Impact'] ,results[results['Prediction'] == 1]['Strength'], s=20, c='blue', label='C1')
@@ -59,8 +65,9 @@ plt.ylabel('Strength')
 plt.savefig('graphs/kmeans.png')
 plt.show()
 
+# Exporting pandas dataframe with status tags.
 confirmed = pd.read_csv('C://Users/usama/OneDrive/Desktop/covid-19/Output/confirmed.csv')
 deaths = pd.read_csv('C://Users/usama/OneDrive/Desktop/covid-19/Output/deaths.csv')
 recovered = pd.read_csv('C://Users/usama/OneDrive/Desktop/covid-19/Output/recovered.csv')
-Status = pd.concat([confirmed, deaths['Deaths'], recovered['Recovered'], results], axis=1)
-pd.to_csv("C://Users/usama/OneDrive/Desktop/github/covid-19-global-status/output/all_data.csv", index=False)
+Status_knn = pd.concat([confirmed, deaths['Deaths'], recovered['Recovered'], results], axis=1)
+Status_knn.to_csv("C://Users/usama/OneDrive/Desktop/github/covid-19-global-status/output/status_knn.csv", index=False)
