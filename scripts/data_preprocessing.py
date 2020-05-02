@@ -65,6 +65,6 @@ Result = pd.concat([confirmed, deaths['Deaths'], recovered['Recovered']], axis=1
 impact = recovered['Recovered'] - deaths['Deaths']
 X = pd.concat([confirmed['Confirmed'], impact], axis=1)
 X.columns = ['Confirmed', 'Impact']
-X.to_csv("C://Users/usama/OneDrive/Desktop/github/covid-19-global-status/output/all_data.csv")
+X.to_csv("C://Users/usama/OneDrive/Desktop/github/covid-19-global-status/output/all_data.csv", index=False)
 
 print("Data preprocessed sucessfully")
