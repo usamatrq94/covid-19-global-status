@@ -21,7 +21,7 @@ for x in range(0,len(Geo_data['Prediction'].unique())):
 
 plt.figure(figsize=[5,4])
 
-labels = ['High Risk', 'Low Risk', 'Stability', 'Recovery']
+labels = ['Low Risk', 'High Risk', 'Stability', 'Recovery']
 plt.bar(labels, counts, width = 0.5, color='#0504aa',alpha=0.7)
 plt.grid(axis='y', alpha=0.50)
 plt.xlabel('Status',fontsize=2)
